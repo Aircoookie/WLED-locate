@@ -16,7 +16,9 @@ body {
 </style>
 </head>
 <body onload="getLocation()">
-<div id="loc"></div>
+<h3>WLED location setting tool</h3>
+<div id="loc">Please grant the location permission.</div>
+<br><i>This tool does not send or store your location anywhere except locally on your WLED hardware.</i>
 
 <script>
 var x = document.getElementById("loc");
@@ -32,9 +34,10 @@ function getLocation() {
 function sendPos(pos) {
   x.style.color = "#00AA00";
   x.innerHTML = "&#10004; Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
-  if (window.parent != window.top) {
-    window.parent.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude});
+  if (window.opener) {
+    window.opener.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude});
     x.innerHTML = "&#10004; Location set";
+    window.close();
   }
 }
 
