@@ -35,7 +35,7 @@ function sendPos(pos) {
   x.style.color = "#00AA00";
   x.innerHTML = "&#10004; Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
   if (window.opener) {
-    window.opener.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude});
+    window.opener.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude},"*");
     x.innerHTML = "&#10004; Location set! Returning to WLED...";
     setTimeout(cls, 1000);
   }
