@@ -18,12 +18,16 @@ body {
 <body onload="getLocation()">
 <h3>WLED location setting tool</h3>
 <div id="loc">Please grant the location permission.</div>
-<br><i>This tool does not send or store your location anywhere except locally on your WLED hardware.</i>
+<br>
+<div id="ref"></div>
 
 <script>
 var x = document.getElementById("loc");
 
 function getLocation() {
+  if (document.referrer) {
+    document.getElementById("ref").innerHTML = `<i>This tool will send your location to ${document.referrer}.</i>`;
+  }
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(sendPos, showError);
   } else { 
