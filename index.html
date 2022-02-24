@@ -37,11 +37,11 @@ function sendPos(pos) {
   if (window.opener) {
     window.opener.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude});
     x.innerHTML = "&#10004; Location set! Returning to WLED...";
-    setTimeout(close, 1000);
+    setTimeout(cls, 1000);
   }
 }
 
-function close(){
+function cls(){
   window.close();
 }
 
