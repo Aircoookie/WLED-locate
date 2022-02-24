@@ -15,7 +15,7 @@ body {
 
 </style>
 </head>
-<body onload="getLocation()">
+<body onload="go()">
 <h3>WLED location setting tool</h3>
 <div id="loc">Please grant the location permission.</div>
 <br>
@@ -24,10 +24,14 @@ body {
 <script>
 var x = document.getElementById("loc");
 
-function getLocation() {
+function go() {
   if (document.referrer) {
     document.getElementById("ref").innerHTML = `<i>This tool will send your location to ${document.referrer}.</i>`;
   }
+  setTimeout(getLocation, 1000);
+}
+
+function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(sendPos, showError);
   } else { 
