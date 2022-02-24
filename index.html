@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<meta charset="utf-8">
+	<meta name="theme-color" content="#222222">
+	<title>WLED Locator</title>
+<style>
+body {
+  background-color: #222;
+  color: white;
+  font-family: Helvetica, Verdana, sans-serif;
+  text-align: center;
+}
+
+</style>
+</head>
+<body onload="getLocation()">
+<div id="loc"></div>
+
+<script>
+var x = document.getElementById("loc");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(sendPos, showError);
+  } else { 
+    x.innerHTML = "&#10006; API unsupported";
+  }
+}
+
+function sendPos(pos) {
+  x.style.color = "#00AA00";
+  x.innerHTML = "&#10004; Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
+  if (window.parent != window.top) {
+    window.parent.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude});
+    x.innerHTML = "&#10004; Location set";
+  }
+}
+
+function showError(err) {
+  x.style.color = "red";
+  switch(err.code) {
+    case err.PERMISSION_DENIED:
+      x.innerHTML = "&#10006; No permission"
+      break;
+    case err.POSITION_UNAVAILABLE:
+      x.innerHTML = "&#10006; Location unavailable"
+      break;
+    case err.TIMEOUT:
+      x.innerHTML = "&#10006; Timeout"
+      break;
+    case err.UNKNOWN_ERROR:
+      x.innerHTML = "&#10006; An error occurred"
+      break;
+  }
+}
+</script>
+</body>
+</html>
