@@ -36,9 +36,13 @@ function sendPos(pos) {
   x.innerHTML = "&#10004; Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
   if (window.opener) {
     window.opener.postMessage({"lat":pos.coords.latitude,"lon":pos.coords.longitude});
-    x.innerHTML = "&#10004; Location set";
-    window.close();
+    x.innerHTML = "&#10004; Location set! Returning to WLED...";
+    setTimeout(close, 1000);
   }
+}
+
+function close(){
+  window.close();
 }
 
 function showError(err) {
